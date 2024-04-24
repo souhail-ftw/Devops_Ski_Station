@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    tools {
+        jdk "JAVA_HOME"
+        maven "MAVEN_HOME"
+    }
+    environment {
+        DOCKER_IMAGE_NAME = 'souhaieel/devops_ski'
+        DOCKER_HUB_USERNAME = 'souhaieel'
+        DOCKER_HUB_PASSWORD = 'dckr_pat_qQtb72U2LWl962f6IDra2dNN4l4'
+    }
+    stages {
+        stage('git Checkout') {
+            steps {
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/souhail-ftw/Devops_Ski_Station'
+            }
+        }
+        stage('Code Compile') {
+            steps {
+                    sh 'mvn clean compile'
+    
+            }
+        }
+        stage('Unit Test') {
+            steps {
+                    sh "mvn test"
+            }
+        }
+        stage('Build and Push Image') {
+            steps {
+                script {
+                    sh '''
+                        docker build -t ${DOCKER_IMAGE_NAME} .
+                        docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
+                        docker push ${DOCKER_IMAGE_NAME}
+                    '''
+                }
+            }
+        }
+    }
+}
