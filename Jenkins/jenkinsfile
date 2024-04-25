@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('git Checkout') {
             steps {
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/souhail-ftw/Devops_Ski_Station'
+                git branch: 'master', changelog: false, poll: false, url: 'https://github.com/souhail-ftw/Devops_Ski_Station'
             }
         }
         stage('Code Compile') {
