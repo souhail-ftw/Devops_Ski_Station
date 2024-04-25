@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    // sqp_b39d3d41caa510ae36df5255829c6e84d985dc84
     tools {
         jdk "JAVA_HOME"
         maven "MAVEN_HOME"
@@ -26,6 +27,11 @@ pipeline {
                     sh "mvn test"
             }
         }
+        stage('SonarQube Analysis') {
+            def mvn = tool 'Default Maven';
+            withSonarQubeEnv() {
+            sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=devopsSki -Dsonar.projectName='devopsSki'"}
+            }
         stage('Build and Push Image') {
             steps {
                 script {
