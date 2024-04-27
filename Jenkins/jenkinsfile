@@ -5,7 +5,8 @@ pipeline {
         maven "MAVEN_HOME"
     }
     environment {
-        DOCKER_IMAGE_NAME = 'souhaieel/devops_ski'
+        // DOCKER_IMAGE_NAME = 'souhaieel/devops_ski'
+        DOCKER_IMAGE_NAME = 'devops_ski'
         DOCKER_HUB_USERNAME = 'souhaieel'
         DOCKER_HUB_PASSWORD = 'dckr_pat_qQtb72U2LWl962f6IDra2dNN4l4'
         NEXUS_URL = 'http://nexus:8081/repository/docker_repo/'
