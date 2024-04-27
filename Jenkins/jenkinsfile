@@ -50,7 +50,7 @@ pipeline {
                     sh '''
                         docker build -t ${DOCKER_IMAGE_NAME} .
                         docker tag ${DOCKER_IMAGE_NAME} ${NEXUS_URL}${DOCKER_IMAGE_NAME}
-                        docker login -u admin -p 123 http://localhost:8081/repository/docker_repo/
+                        docker login -u admin -p 123 http://nexus:8081/repository/docker_repo/
                         docker push ${NEXUS_URL}${DOCKER_IMAGE_NAME}
                     '''
                 }
